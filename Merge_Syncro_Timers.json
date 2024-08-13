@@ -1,0 +1,2152 @@
+{
+  "name": "Merge Syncro Timers",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "0e28bb1e-760d-480e-8ca8-a8fc11769d77",
+      "name": "When clicking ‘Test workflow’",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        600,
+        460
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f1e84c77-1809-4184-a795-4d5eaadb0a12",
+              "name": "onsite_duration",
+              "value": "={{ $json.quantity }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "52cac4e4-a784-4dbe-9d6c-2f77f6b2dc7c",
+      "name": "Edit Fields1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2940,
+        100
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f1e84c77-1809-4184-a795-4d5eaadb0a12",
+              "name": "afterhours_duration",
+              "value": "={{ $json.quantity }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "8e416c1d-8cbe-4bea-a820-9d5e3c3b5cde",
+      "name": "Edit Fields2",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2940,
+        760
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f1e84c77-1809-4184-a795-4d5eaadb0a12",
+              "name": "travel_duration",
+              "value": "={{ $json.quantity }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "b8c1c3f7-23e8-4c2c-89f2-14f49daa68b6",
+      "name": "Edit Fields3",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2940,
+        1420
+      ]
+    },
+    {
+      "parameters": {
+        "fieldsToSummarize": {
+          "values": [
+            {
+              "aggregation": "sum",
+              "field": "onsite_duration"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "12713c0e-b2e7-47ff-ae0e-24ef89db4e6a",
+      "name": "Summarize1",
+      "type": "n8n-nodes-base.summarize",
+      "typeVersion": 1,
+      "position": [
+        3160,
+        100
+      ]
+    },
+    {
+      "parameters": {
+        "fieldsToSummarize": {
+          "values": [
+            {
+              "aggregation": "sum",
+              "field": "afterhours_duration"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "60239d64-e00b-4634-91c9-3839e3a2f6d2",
+      "name": "Summarize2",
+      "type": "n8n-nodes-base.summarize",
+      "typeVersion": 1,
+      "position": [
+        3160,
+        760
+      ]
+    },
+    {
+      "parameters": {
+        "fieldsToSummarize": {
+          "values": [
+            {
+              "aggregation": "sum",
+              "field": "travel_duration"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "94a02871-4bc7-4892-9090-b2039ad4b9da",
+      "name": "Summarize3",
+      "type": "n8n-nodes-base.summarize",
+      "typeVersion": 1,
+      "position": [
+        3160,
+        1420
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f1e84c77-1809-4184-a795-4d5eaadb0a12",
+              "name": "onsite_ids",
+              "value": "={{ $json.id }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a11d2ccf-2fd5-4187-86cb-b6a3667e21d6",
+      "name": "Edit Fields5",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2940,
+        260
+      ]
+    },
+    {
+      "parameters": {
+        "fieldsToSummarize": {
+          "values": [
+            {
+              "aggregation": "append",
+              "field": "onsite_ids"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "f464706f-b8af-49e2-9adb-07c1137fed16",
+      "name": "Summarize5",
+      "type": "n8n-nodes-base.summarize",
+      "typeVersion": 1,
+      "position": [
+        3160,
+        260
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f1e84c77-1809-4184-a795-4d5eaadb0a12",
+              "name": "afterhours_ids",
+              "value": "={{ $json.id }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "13adf382-e45e-407b-9ace-37e608bb9733",
+      "name": "Edit Fields6",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2940,
+        920
+      ]
+    },
+    {
+      "parameters": {
+        "fieldsToSummarize": {
+          "values": [
+            {
+              "aggregation": "append",
+              "field": "afterhours_ids"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a9319f32-84fc-41f0-a386-cff23265d312",
+      "name": "Summarize6",
+      "type": "n8n-nodes-base.summarize",
+      "typeVersion": 1,
+      "position": [
+        3160,
+        920
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f1e84c77-1809-4184-a795-4d5eaadb0a12",
+              "name": "travel_ids",
+              "value": "={{ $json.id }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "b69276de-d08c-453d-aaa1-197ca04e16c8",
+      "name": "Edit Fields7",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2940,
+        1580
+      ]
+    },
+    {
+      "parameters": {
+        "fieldsToSummarize": {
+          "values": [
+            {
+              "aggregation": "append",
+              "field": "travel_ids"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "5c235a29-09f9-4108-b110-49fcb64fe25b",
+      "name": "Summarize7",
+      "type": "n8n-nodes-base.summarize",
+      "typeVersion": 1,
+      "position": [
+        3160,
+        1580
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f1e84c77-1809-4184-a795-4d5eaadb0a12",
+              "name": "onsite_product",
+              "value": "={{ $json.product_id }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "b8d31aa5-3b3a-4bad-81c0-70dd6b0318b0",
+      "name": "Edit Fields9",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2940,
+        420
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f1e84c77-1809-4184-a795-4d5eaadb0a12",
+              "name": "afterhours_product",
+              "value": "={{ $json.product_id }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "23c308e4-8736-415a-9c8b-47ed0b5527a6",
+      "name": "Edit Fields10",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2940,
+        1080
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f1e84c77-1809-4184-a795-4d5eaadb0a12",
+              "name": "travel_product",
+              "value": "={{ $json.product_id }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "97d385f6-1c2a-4f20-a2d5-f9ec799152e2",
+      "name": "Edit Fields11",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2940,
+        1740
+      ]
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "=appended_remote_ids",
+        "options": {}
+      },
+      "id": "e078acf8-8bfa-479e-a6cc-c3e9ee9baedd",
+      "name": "Split Out1",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        3640,
+        -360
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "numberInputs": 4,
+        "options": {}
+      },
+      "id": "61ea0884-755d-47c3-a020-beb3db1e4210",
+      "name": "Merge2",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        3420,
+        920
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://{{ $json[\"SyncroSubDomain\"] }}.syncromsp.com/api/v1/tickets/{{ $('Merge1').item.json.ticket_id }}/remove_line_item",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "ticket_line_item_id",
+              "value": "={{ $json.appended_onsite_ids }}"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "={{ $('Set Syncro API Key').item.json.SyncroAPIKey }}"
+            },
+            {
+              "name": "accepts",
+              "value": "application/json"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "f1c992e7-8683-4ea7-ab1e-a2d0e921b8ab",
+      "name": "HTTP Request1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        3900,
+        280
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://{{ $json[\"SyncroSubDomain\"] }}.syncromsp.com/api/v1/tickets/{{ $json.ticket_id }}/timer_entry",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "product_id",
+              "value": "={{ $json.product_id }}"
+            },
+            {
+              "name": "duration_minutes",
+              "value": "={{ $json.sum_onsite_duration.toFixed(3) * 60}}"
+            },
+            {
+              "name": "notes",
+              "value": "={{ $json.name }} - Ticket #{{ $('Syncro Get A Ticket').item.json.number }} - {{ $('Execution Data4').item.json.subject }}"
+            },
+            {
+              "name": "start_at",
+              "value": "={{ $now }}"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "={{ $('Set Syncro API Key').item.json.SyncroAPIKey }}"
+            },
+            {
+              "name": "accepts",
+              "value": "application/json"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "e011b31e-6f92-401f-9227-cd587af156ff",
+      "name": "HTTP Request6",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        3900,
+        460
+      ]
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "appended_onsite_ids",
+        "options": {}
+      },
+      "id": "825b6cfd-aa3b-443e-88ae-dde804d3c7d9",
+      "name": "Split Out2",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        3640,
+        280
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://{{ $json[\"SyncroSubDomain\"] }}.syncromsp.com/api/v1/tickets/{{ $json.ticket_id }}/charge_timer_entry",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "timer_entry_id",
+              "value": "={{ $json.id }}"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "={{ $('Set Syncro API Key').item.json.SyncroAPIKey }}"
+            },
+            {
+              "name": "accepts",
+              "value": "application/json"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "22b3d4a8-cd53-49be-b983-28bc78197152",
+      "name": "HTTP Request7",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        4120,
+        460
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://{{ $json[\"SyncroSubDomain\"] }}.syncromsp.com/api/v1/tickets/{{ $('Merge2').item.json.ticket_id }}/remove_line_item",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "ticket_line_item_id",
+              "value": "={{ $json.appended_afterhours_ids }}"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "={{ $('Set Syncro API Key').item.json.SyncroAPIKey }}"
+            },
+            {
+              "name": "accepts",
+              "value": "application/json"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "b87ac757-933f-49b9-9c64-aae44229ea7d",
+      "name": "HTTP Request2",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        3880,
+        940
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://{{ $json[\"SyncroSubDomain\"] }}.syncromsp.com/api/v1/tickets/{{ $json.ticket_id }}/timer_entry",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "product_id",
+              "value": "={{ $json.product_id }}"
+            },
+            {
+              "name": "duration_minutes",
+              "value": "={{ $json.sum_afterhours_duration.toFixed(3) * 60}}"
+            },
+            {
+              "name": "notes",
+              "value": "={{ $json.name }} - Ticket #{{ $('Syncro Get A Ticket').item.json.number }} - {{ $('Execution Data4').item.json.subject }}"
+            },
+            {
+              "name": "start_at",
+              "value": "={{ $now }}"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "={{ $('Set Syncro API Key').item.json.SyncroAPIKey }}"
+            },
+            {
+              "name": "accepts",
+              "value": "application/json"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "5d35a2da-3cae-45b3-a1e1-718f635d3dcf",
+      "name": "HTTP Request8",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        3880,
+        1120
+      ]
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "appended_afterhours_ids",
+        "options": {}
+      },
+      "id": "875a053f-8291-48f6-adbf-123e8983f651",
+      "name": "Split Out3",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        3620,
+        940
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://{{ $json[\"SyncroSubDomain\"] }}.syncromsp.com/api/v1/tickets/{{ $json.ticket_id }}/charge_timer_entry",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "timer_entry_id",
+              "value": "={{ $json.id }}"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "={{ $('Set Syncro API Key').item.json.SyncroAPIKey }}"
+            },
+            {
+              "name": "accepts",
+              "value": "application/json"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a03c0736-aeeb-4a15-ab2e-9b7b4811c770",
+      "name": "HTTP Request9",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        4100,
+        1120
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://{{ $json[\"SyncroSubDomain\"] }}.syncromsp.com/api/v1/tickets/{{ $('Merge3').item.json.ticket_id }}/remove_line_item",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "ticket_line_item_id",
+              "value": "={{ $json.appended_travel_ids }}"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "={{ $('Set Syncro API Key').item.json.SyncroAPIKey }}"
+            },
+            {
+              "name": "accepts",
+              "value": "application/json"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "2e81ab78-d129-4615-ab70-8ea3a5886f41",
+      "name": "HTTP Request3",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        3900,
+        1580
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://{{ $json[\"SyncroSubDomain\"] }}.syncromsp.com/api/v1/tickets/{{ $json.ticket_id }}/timer_entry",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "product_id",
+              "value": "={{ $json.product_id }}"
+            },
+            {
+              "name": "duration_minutes",
+              "value": "={{ $json.sum_travel_duration.toFixed(3) * 60}}"
+            },
+            {
+              "name": "notes",
+              "value": "={{ $json.name }} - Ticket #{{ $('Syncro Get A Ticket').item.json.number }} - {{ $('Execution Data4').item.json.subject }}"
+            },
+            {
+              "name": "start_at",
+              "value": "={{ $now }}"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "={{ $('Set Syncro API Key').item.json.SyncroAPIKey }}"
+            },
+            {
+              "name": "accepts",
+              "value": "application/json"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "47d8f2b2-b7ad-4ccb-9770-ac729b42211f",
+      "name": "HTTP Request10",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        3900,
+        1760
+      ]
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "appended_travel_ids",
+        "options": {}
+      },
+      "id": "6bc90c30-70c9-48a3-93bb-72752612a89a",
+      "name": "Split Out4",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        3640,
+        1580
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://{{ $json[\"SyncroSubDomain\"] }}.syncromsp.com/api/v1/tickets/{{ $json.ticket_id }}/charge_timer_entry",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "timer_entry_id",
+              "value": "={{ $json.id }}"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "={{ $('Set Syncro API Key').item.json.SyncroAPIKey }}"
+            },
+            {
+              "name": "accepts",
+              "value": "application/json"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "0f37423c-5315-4aab-8e15-4f7f0ffc88b5",
+      "name": "HTTP Request11",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        4120,
+        1760
+      ]
+    },
+    {
+      "parameters": {
+        "numberInputs": 4
+      },
+      "id": "6f148905-c8d4-4dc0-b55b-056c0f26bda9",
+      "name": "Merge4",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        4680,
+        800
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "numberInputs": 4,
+        "options": {}
+      },
+      "id": "53a73ab6-822d-4e1a-a24d-57c24d58ac84",
+      "name": "Merge1",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        3420,
+        260
+      ]
+    },
+    {
+      "parameters": {
+        "dataToSave": {
+          "values": [
+            {
+              "key": "tsubject",
+              "value": "={{ $json.subject }}"
+            }
+          ]
+        }
+      },
+      "id": "69e2ee7c-5c56-421c-a9e2-ad45c4ba2699",
+      "name": "Execution Data4",
+      "type": "n8n-nodes-base.executionData",
+      "typeVersion": 1,
+      "position": [
+        1840,
+        540
+      ]
+    },
+    {
+      "parameters": {
+        "method": "PUT",
+        "url": "=https://{{ $json[\"SyncroSubDomain\"] }}.syncromsp.com/api/v1/tickets/{{ $json.ticket_id }}",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "status",
+              "value": "=Resolved"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "={{ $('Set Syncro API Key').item.json.SyncroAPIKey }}"
+            },
+            {
+              "name": "accepts",
+              "value": "application/json"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "20888d9a-d942-4d15-b0f2-6e3cc7344a9b",
+      "name": "Resolve Ticket",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        4900,
+        820
+      ],
+      "executeOnce": true
+    },
+    {
+      "parameters": {
+        "authentication": "webhook",
+        "content": "=Ticket: {{ $json.ticket.subject }} Resolved for {{ $json.ticket.customer_business_then_name }}\nhttps://{{ $json[\"SyncroSubDomain\"] }}.syncromsp.com/tickets/{{ $json.ticket.id }}",
+        "options": {}
+      },
+      "id": "5ab41873-7a48-4d3d-a89e-bc879706fe96",
+      "name": "Discord",
+      "type": "n8n-nodes-base.discord",
+      "typeVersion": 2,
+      "position": [
+        5120,
+        820
+      ],
+      "credentials": {
+        "discordWebhookApi": {
+          "id": "yswSGDlxT7pw4Zj6",
+          "name": "Discord Syncro Billing"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "19c75f8d-65a2-472f-9dc4-ece2e5e13880",
+              "name": "SyncroSubDomain",
+              "value": "changeme",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "61d890c7-50a3-4d09-999c-bc9ddd712aff",
+      "name": "Set SubDomain",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1100,
+        540
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "19c75f8d-65a2-472f-9dc4-ece2e5e13880",
+              "name": "SyncroAPIKey",
+              "value": "changeme",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a17f6b6c-bf6a-485a-b7c9-a1b7270ec4f2",
+      "name": "Set Syncro API Key",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        880,
+        540
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "ticket",
+        "limit": 1,
+        "filters": {
+          "status": "=Ready To Bill"
+        }
+      },
+      "id": "901c6d4d-fa64-4166-8c66-65b7fefba813",
+      "name": "Syncro Get A Ticket",
+      "type": "n8n-nodes-base.syncroMsp",
+      "typeVersion": 1,
+      "position": [
+        1380,
+        540
+      ],
+      "credentials": {
+        "syncroMspApi": {
+          "id": "T21hAsw47Z8X1OW7",
+          "name": "SyncroMSP account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "ticket",
+        "operation": "get",
+        "ticketId": "={{ $json.id }}"
+      },
+      "id": "433433c4-068b-4cbb-b1e3-3398e55a008f",
+      "name": "Syncro Get Ticket Details",
+      "type": "n8n-nodes-base.syncroMsp",
+      "typeVersion": 1,
+      "position": [
+        1600,
+        540
+      ],
+      "credentials": {
+        "syncroMspApi": {
+          "id": "T21hAsw47Z8X1OW7",
+          "name": "SyncroMSP account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "line_items",
+        "options": {}
+      },
+      "id": "c0b8685a-ba19-4a54-9166-a853d3b6e014",
+      "name": "Split Out Line Items",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        2100,
+        540
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.name }}",
+                    "rightValue": "1) Remote Support",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "eb549732-a1db-4e34-845c-53f39c6b50ef",
+                    "leftValue": "={{ $json.name }}",
+                    "rightValue": "2) On-Site Support",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "08299bc8-a060-4dd8-9c1b-6d91e18e488c",
+                    "leftValue": "={{ $json.name }}",
+                    "rightValue": "3) After Hours Support Ticket",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "9e07bc61-3e20-456c-8105-4df882bddb4d",
+                    "leftValue": "={{ $json.name }}",
+                    "rightValue": "4) Travel",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "f384b6f0-ac46-4101-8439-dfea2ad9cd1d",
+      "name": "Switch",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        2320,
+        540
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f1e84c77-1809-4184-a795-4d5eaadb0a12",
+              "name": "remote_duration",
+              "value": "={{ $json.quantity }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "07f96262-e88f-4b70-aa5e-52f847c6d25f",
+      "name": "Get Remote Durations",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2940,
+        -540
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f1e84c77-1809-4184-a795-4d5eaadb0a12",
+              "name": "remote_ids",
+              "value": "={{ $json.id }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "cce40857-c770-47de-91ac-8e6e7f47e674",
+      "name": "Get Remote Line Items",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2940,
+        -380
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f1e84c77-1809-4184-a795-4d5eaadb0a12",
+              "name": "remote_product",
+              "value": "={{ $json.product_id }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "f31554e8-d6bd-4982-845a-53bfabcc9367",
+      "name": "Get Remote Product ID",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2940,
+        -220
+      ]
+    },
+    {
+      "parameters": {
+        "dataToSave": {
+          "values": [
+            {
+              "key": "tid",
+              "value": "={{ $json.ticket_id }}"
+            }
+          ]
+        }
+      },
+      "id": "70e3de5c-f964-435f-a654-6a946c01742b",
+      "name": "ED Get Ticket ID 1",
+      "type": "n8n-nodes-base.executionData",
+      "typeVersion": 1,
+      "position": [
+        2940,
+        -60
+      ],
+      "executeOnce": true
+    },
+    {
+      "parameters": {
+        "dataToSave": {
+          "values": [
+            {
+              "key": "tid",
+              "value": "={{ $json.ticket_id }}"
+            }
+          ]
+        }
+      },
+      "id": "fd1e54ae-a9d4-4d53-9d4f-0b998a54bd54",
+      "name": "ED Get Ticket ID 2",
+      "type": "n8n-nodes-base.executionData",
+      "typeVersion": 1,
+      "position": [
+        2940,
+        580
+      ],
+      "executeOnce": true
+    },
+    {
+      "parameters": {
+        "dataToSave": {
+          "values": [
+            {
+              "key": "tid",
+              "value": "={{ $json.ticket_id }}"
+            }
+          ]
+        }
+      },
+      "id": "7a0c8435-97f6-4708-aa9f-4f26b28e8a25",
+      "name": "ED Get Ticket ID 3",
+      "type": "n8n-nodes-base.executionData",
+      "typeVersion": 1,
+      "position": [
+        2940,
+        1240
+      ],
+      "executeOnce": true
+    },
+    {
+      "parameters": {
+        "dataToSave": {
+          "values": [
+            {
+              "key": "tid",
+              "value": "={{ $json.ticket_id }}"
+            }
+          ]
+        }
+      },
+      "id": "0a7db8c6-5c65-4e52-86fd-8568d09a819c",
+      "name": "ED Get Ticket ID 4",
+      "type": "n8n-nodes-base.executionData",
+      "typeVersion": 1,
+      "position": [
+        2940,
+        1900
+      ],
+      "executeOnce": true
+    },
+    {
+      "parameters": {
+        "fieldsToSummarize": {
+          "values": [
+            {
+              "aggregation": "sum",
+              "field": "remote_duration"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "61dc84ce-90f4-4504-afa2-ca9451c3b67f",
+      "name": "Sum Remote Duration",
+      "type": "n8n-nodes-base.summarize",
+      "typeVersion": 1,
+      "position": [
+        3160,
+        -540
+      ]
+    },
+    {
+      "parameters": {
+        "fieldsToSummarize": {
+          "values": [
+            {
+              "aggregation": "append",
+              "field": "remote_ids"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "46e68db5-54ac-42d6-8d61-278a17880556",
+      "name": "Append Remote IDs",
+      "type": "n8n-nodes-base.summarize",
+      "typeVersion": 1,
+      "position": [
+        3160,
+        -380
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://{{ $json[\"SyncroSubDomain\"] }}.syncromsp.com/api/v1/tickets/{{ $('Merge').item.json.ticket_id }}/remove_line_item",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "ticket_line_item_id",
+              "value": "={{ $json.appended_remote_ids }}"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "={{ $('Set Syncro API Key').item.json.SyncroAPIKey }}"
+            },
+            {
+              "name": "accepts",
+              "value": "application/json"
+            },
+            {
+              "name": "subdomain",
+              "value": "={{ $('Set SubDomain').item.json.SyncroSubDomain }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "80b2502e-f07a-4b4a-b497-a3d188208809",
+      "name": "Delete Remote Line Items",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        3900,
+        -360
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://{{ $json[\"SyncroSubDomain\"] }}.syncromsp.com/api/v1/tickets/{{ $json.ticket_id }}/timer_entry",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "product_id",
+              "value": "={{ $json.product_id }}"
+            },
+            {
+              "name": "duration_minutes",
+              "value": "={{ $json.sum_remote_duration.toFixed(3) * 60}}"
+            },
+            {
+              "name": "notes",
+              "value": "={{ $json.name }} - Ticket #{{ $('Syncro Get A Ticket').item.json.number }} - {{ $('Execution Data4').item.json.subject }}"
+            },
+            {
+              "name": "start_at",
+              "value": "={{ $now }}"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "={{ $('Set Syncro API Key').item.json.SyncroAPIKey }}"
+            },
+            {
+              "name": "accepts",
+              "value": "application/json"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "ec48113d-6501-4d48-a4a6-060ea694b790",
+      "name": "Create Remote Line Item",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        3900,
+        -180
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://{{ $json[\"SyncroSubDomain\"] }}.syncromsp.com/api/v1/tickets/{{ $json.ticket_id }}/charge_timer_entry",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "timer_entry_id",
+              "value": "={{ $json.id }}"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "={{ $('Set Syncro API Key').item.json.SyncroAPIKey }}"
+            },
+            {
+              "name": "accepts",
+              "value": "application/json"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "f8f41e25-1e46-4448-9f51-d4152788a4c8",
+      "name": "Charge Line Item",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        4120,
+        -180
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "numberInputs": 4,
+        "options": {}
+      },
+      "id": "72861ce4-9479-4377-b9c0-9f71df48a65b",
+      "name": "Merge3",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        3420,
+        1560
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes"
+            }
+          ]
+        }
+      },
+      "id": "7586d141-c8cd-44ca-b2fd-09024bfd8057",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        600,
+        640
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "numberInputs": 4,
+        "options": {}
+      },
+      "id": "81ee01d0-e297-44e8-9c5a-7a6dea6019c8",
+      "name": "Merge",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        3420,
+        -380
+      ],
+      "executeOnce": false
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "Set Syncro API Key",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Summarize1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields2": {
+      "main": [
+        [
+          {
+            "node": "Summarize2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields3": {
+      "main": [
+        [
+          {
+            "node": "Summarize3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields5": {
+      "main": [
+        [
+          {
+            "node": "Summarize5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields6": {
+      "main": [
+        [
+          {
+            "node": "Summarize6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields7": {
+      "main": [
+        [
+          {
+            "node": "Summarize7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Summarize1": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Summarize5": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Summarize2": {
+      "main": [
+        [
+          {
+            "node": "Merge2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Summarize6": {
+      "main": [
+        [
+          {
+            "node": "Merge2",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Summarize3": {
+      "main": [
+        [
+          {
+            "node": "Merge3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Summarize7": {
+      "main": [
+        [
+          {
+            "node": "Merge3",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Edit Fields9": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "Edit Fields10": {
+      "main": [
+        [
+          {
+            "node": "Merge2",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "Edit Fields11": {
+      "main": [
+        [
+          {
+            "node": "Merge3",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "Split Out1": {
+      "main": [
+        [
+          {
+            "node": "Delete Remote Line Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request6": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out2": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request8": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request9",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out3": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge2": {
+      "main": [
+        [
+          {
+            "node": "Split Out3",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "HTTP Request8",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request10": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request11",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out4": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request7": {
+      "main": [
+        [
+          {
+            "node": "Merge4",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "HTTP Request9": {
+      "main": [
+        [
+          {
+            "node": "Merge4",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "HTTP Request11": {
+      "main": [
+        [
+          {
+            "node": "Merge4",
+            "type": "main",
+            "index": 3
+          }
+        ]
+      ]
+    },
+    "Merge1": {
+      "main": [
+        [
+          {
+            "node": "Split Out2",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "HTTP Request6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execution Data4": {
+      "main": [
+        [
+          {
+            "node": "Split Out Line Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge4": {
+      "main": [
+        [
+          {
+            "node": "Resolve Ticket",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Resolve Ticket": {
+      "main": [
+        [
+          {
+            "node": "Discord",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set SubDomain": {
+      "main": [
+        [
+          {
+            "node": "Syncro Get A Ticket",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Syncro API Key": {
+      "main": [
+        [
+          {
+            "node": "Set SubDomain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Syncro Get A Ticket": {
+      "main": [
+        [
+          {
+            "node": "Syncro Get Ticket Details",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Syncro Get Ticket Details": {
+      "main": [
+        [
+          {
+            "node": "Execution Data4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out Line Items": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Get Remote Durations",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Get Remote Line Items",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Get Remote Product ID",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "ED Get Ticket ID 1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Edit Fields5",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Edit Fields9",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "ED Get Ticket ID 2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields2",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Edit Fields6",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Edit Fields10",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "ED Get Ticket ID 3",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields3",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Edit Fields7",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Edit Fields11",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "ED Get Ticket ID 4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Remote Durations": {
+      "main": [
+        [
+          {
+            "node": "Sum Remote Duration",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Remote Line Items": {
+      "main": [
+        [
+          {
+            "node": "Append Remote IDs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Remote Product ID": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "ED Get Ticket ID 1": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 3
+          }
+        ]
+      ]
+    },
+    "ED Get Ticket ID 2": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 3
+          }
+        ]
+      ]
+    },
+    "ED Get Ticket ID 3": {
+      "main": [
+        [
+          {
+            "node": "Merge2",
+            "type": "main",
+            "index": 3
+          }
+        ]
+      ]
+    },
+    "ED Get Ticket ID 4": {
+      "main": [
+        [
+          {
+            "node": "Merge3",
+            "type": "main",
+            "index": 3
+          }
+        ]
+      ]
+    },
+    "Sum Remote Duration": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append Remote IDs": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Create Remote Line Item": {
+      "main": [
+        [
+          {
+            "node": "Charge Line Item",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Charge Line Item": {
+      "main": [
+        [
+          {
+            "node": "Merge4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge3": {
+      "main": [
+        [
+          {
+            "node": "Split Out4",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "HTTP Request10",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Set Syncro API Key",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Split Out1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Create Remote Line Item",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "42690f78-0aea-45ba-b2ba-30c86288f5ad",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "309ad73abfb5fc0c1f3d83ff41d7cad8b1bb5a19f4c3ae0fb86c5e816831270f"
+  },
+  "id": "uogUJEeFAgaVuNwx",
+  "tags": []
+}

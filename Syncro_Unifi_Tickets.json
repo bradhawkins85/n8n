@@ -1,0 +1,299 @@
+{
+  "name": "Syncro Unifi Tickets",
+  "nodes": [
+    {
+      "parameters": {
+        "mailbox": "Unifi",
+        "options": {
+          "forceReconnect": 1
+        }
+      },
+      "type": "n8n-nodes-base.emailReadImap",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "e983c9b9-f2e1-4298-af6e-64e38669bd9d",
+      "name": "Email Trigger (IMAP)",
+      "credentials": {
+        "imap": {
+          "id": "Lr1z9stdsPbcQXBA",
+          "name": "IMAP - n8n"
+        }
+      },
+      "notes": "Use IMAP connector to look for new offline device emails in Unifi folder."
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.subject }}",
+                    "rightValue": "Device Offline",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "911dcfd8-c6c9-42f1-a45b-54f2a1fc3791",
+                    "leftValue": "={{ $json.subject }}",
+                    "rightValue": "Device Reconnected",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        220,
+        0
+      ],
+      "id": "aa6c72bb-c700-45a0-9ab2-9e257f525338",
+      "name": "Switch",
+      "notes": "Check email subject for Device Offline or Device Reconnected"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "24de0b01-46c5-442e-9d5e-1ac220528773",
+              "name": "textHtml",
+              "value": "={{ $json.textPlain.split(\"Subject: \")[1].split(\"Device Name\")[0].replaceAll(\"Device Offline\",\"\").trim() }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        460,
+        -120
+      ],
+      "id": "ad0121ff-c967-4b2c-a10a-25a852c380b4",
+      "name": "Edit Fields",
+      "notes": "Filter out the useful information, device name and site."
+    },
+    {
+      "parameters": {
+        "resource": "ticket",
+        "operation": "create",
+        "customerId": "28188240",
+        "subject": "={{ $json.textHtml }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.syncroMsp",
+      "typeVersion": 1,
+      "position": [
+        680,
+        -120
+      ],
+      "id": "ec204f10-f06a-4592-8854-b9badeeebd88",
+      "name": "SyncroMSP",
+      "credentials": {
+        "syncroMspApi": {
+          "id": "paGENZPT9Sphp8iQ",
+          "name": "SyncroMSP account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "ticket",
+        "filters": {
+          "query": "={{ $json.textHtml }}"
+        }
+      },
+      "type": "n8n-nodes-base.syncroMsp",
+      "typeVersion": 1,
+      "position": [
+        680,
+        100
+      ],
+      "id": "ab1b8ed0-4202-49a6-b56a-037da58640cb",
+      "name": "SyncroMSP1",
+      "credentials": {
+        "syncroMspApi": {
+          "id": "paGENZPT9Sphp8iQ",
+          "name": "SyncroMSP account"
+        }
+      },
+      "notes": "find tickets for offline devices using search string built in last step"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "24de0b01-46c5-442e-9d5e-1ac220528773",
+              "name": "textHtml",
+              "value": "={{ $json.textPlain.split(\"Subject: \")[1].split(\"Device Name\")[0].replaceAll(\"Device Reconnected\",\"\").trim().replaceAll(\" reconnected.\", \" gone offline.\") }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        460,
+        100
+      ],
+      "id": "7a60dead-2bf1-45c9-a2b5-3ef23950a761",
+      "name": "Search String",
+      "notes": "Build search string by filtering out the useful information from the email body and switch reconnected to gone offline"
+    },
+    {
+      "parameters": {
+        "resource": "ticket",
+        "operation": "update",
+        "ticketId": "={{ $json.id }}",
+        "updateFields": {
+          "status": "Resolved"
+        }
+      },
+      "type": "n8n-nodes-base.syncroMsp",
+      "typeVersion": 1,
+      "position": [
+        900,
+        100
+      ],
+      "id": "0acbe0a1-13d1-48da-8a38-9414c54c21e2",
+      "name": "SyncroMSP2",
+      "credentials": {
+        "syncroMspApi": {
+          "id": "paGENZPT9Sphp8iQ",
+          "name": "SyncroMSP account"
+        }
+      },
+      "notes": "Resovle the ticket"
+    },
+    {
+      "parameters": {
+        "content": "## I'm a note \n**Change customer ID here**",
+        "height": 240
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        620,
+        -200
+      ],
+      "id": "e089895e-90ca-42ff-8c75-ca6895a2da23",
+      "name": "Sticky Note"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Email Trigger (IMAP)": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Search String",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "SyncroMSP",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search String": {
+      "main": [
+        [
+          {
+            "node": "SyncroMSP1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SyncroMSP1": {
+      "main": [
+        [
+          {
+            "node": "SyncroMSP2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "ec9aa329-672f-4370-9351-9bfeb143c7ce",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "fc5f10191c51822cf914c970a6d26bd581c91f2f6c3d6103b78a30b465cda5be"
+  },
+  "id": "BjSDjamaFKNjnEHu",
+  "tags": []
+}

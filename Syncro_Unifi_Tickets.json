@@ -11,10 +11,10 @@
       "type": "n8n-nodes-base.emailReadImap",
       "typeVersion": 2,
       "position": [
-        0,
-        0
+        -620,
+        200
       ],
-      "id": "e983c9b9-f2e1-4298-af6e-64e38669bd9d",
+      "id": "0297c779-db84-41de-8c50-355df2f85832",
       "name": "Email Trigger (IMAP)",
       "credentials": {
         "imap": {
@@ -79,10 +79,10 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.2,
       "position": [
-        220,
-        0
+        -400,
+        200
       ],
-      "id": "aa6c72bb-c700-45a0-9ab2-9e257f525338",
+      "id": "cdd88d86-c712-4829-b0fa-ea167a1694ed",
       "name": "Switch",
       "notes": "Check email subject for Device Offline or Device Reconnected"
     },
@@ -103,10 +103,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        460,
-        -120
+        -160,
+        80
       ],
-      "id": "ad0121ff-c967-4b2c-a10a-25a852c380b4",
+      "id": "b933011a-96b1-4b65-ab9e-b03db1a586aa",
       "name": "Edit Fields",
       "notes": "Filter out the useful information, device name and site."
     },
@@ -121,10 +121,10 @@
       "type": "n8n-nodes-base.syncroMsp",
       "typeVersion": 1,
       "position": [
-        680,
-        -120
+        560,
+        80
       ],
-      "id": "ec204f10-f06a-4592-8854-b9badeeebd88",
+      "id": "84fe2e9e-7d40-4b51-91f8-77d6c5828d70",
       "name": "SyncroMSP",
       "credentials": {
         "syncroMspApi": {
@@ -143,10 +143,10 @@
       "type": "n8n-nodes-base.syncroMsp",
       "typeVersion": 1,
       "position": [
-        680,
-        100
+        60,
+        300
       ],
-      "id": "ab1b8ed0-4202-49a6-b56a-037da58640cb",
+      "id": "62d1e57b-3300-474a-a46e-a5ff795830e2",
       "name": "SyncroMSP1",
       "credentials": {
         "syncroMspApi": {
@@ -173,10 +173,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        460,
-        100
+        -160,
+        300
       ],
-      "id": "7a60dead-2bf1-45c9-a2b5-3ef23950a761",
+      "id": "108a0d62-6f98-4218-88c7-24d6af5187dd",
       "name": "Search String",
       "notes": "Build search string by filtering out the useful information from the email body and switch reconnected to gone offline"
     },
@@ -192,10 +192,10 @@
       "type": "n8n-nodes-base.syncroMsp",
       "typeVersion": 1,
       "position": [
-        900,
-        100
+        280,
+        300
       ],
-      "id": "0acbe0a1-13d1-48da-8a38-9414c54c21e2",
+      "id": "81eb80e4-ffbf-436b-b72f-3b0611a588ee",
       "name": "SyncroMSP2",
       "credentials": {
         "syncroMspApi": {
@@ -207,20 +207,81 @@
     },
     {
       "parameters": {
-        "content": "## I'm a note \n**Change customer ID here**",
-        "height": 240
+        "assignments": {
+          "assignments": [
+            {
+              "id": "24de0b01-46c5-442e-9d5e-1ac220528773",
+              "name": "textHtml",
+              "value": "={{ $('Email Trigger (IMAP)').item.json.textPlain.split(\"Client Name: \")[1].split(\"Model:\")[0].replaceAll(\"Model:\",\"\").trim() }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
       },
-      "type": "n8n-nodes-base.stickyNote",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        60,
+        80
+      ],
+      "id": "6daba73b-77c5-41cc-bd34-abc79ef13e33",
+      "name": "Edit Fields1",
+      "notes": "Extract Client Name from email body"
+    },
+    {
+      "parameters": {
+        "resource": "customer",
+        "limit": 1,
+        "filters": {
+          "businessName": "={{ $json.textHtml }}"
+        }
+      },
+      "type": "n8n-nodes-base.syncroMsp",
       "typeVersion": 1,
       "position": [
-        620,
-        -200
+        280,
+        80
       ],
-      "id": "e089895e-90ca-42ff-8c75-ca6895a2da23",
-      "name": "Sticky Note"
+      "id": "1e8757ca-e183-4b51-9d4c-3eb64119efb6",
+      "name": "SyncroMSP3",
+      "credentials": {
+        "syncroMspApi": {
+          "id": "paGENZPT9Sphp8iQ",
+          "name": "SyncroMSP account"
+        }
+      }
     }
   ],
-  "pinData": {},
+  "pinData": {
+    "Email Trigger (IMAP)": [
+      {
+        "json": {
+          "textHtml": "<html xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" xmlns:m=\"http://schemas.microsoft.com/office/2004/12/omml\" xmlns=\"http://www.w3.org/TR/REC-html40\"><head><meta http-equiv=Content-Type content=\"text/html; charset=utf-8\"><meta name=Generator content=\"Microsoft Word 15 (filtered medium)\"><!--[if !mso]><style>v\\:* {behavior:url(#default#VML);}\r\no\\:* {behavior:url(#default#VML);}\r\nw\\:* {behavior:url(#default#VML);}\r\n.shape {behavior:url(#default#VML);}\r\n</style><![endif]--><title>Device Offline</title><link rel=Stylesheet type=\"text/css\" media=all href=\"https://fonts.googleapis.com/css2?family=Lato:wght@400;700&amp;family=Roboto:wght@400;700&amp;display=swap\"><style><!--\r\n/* Font Definitions */\r\n@font-face\r\n\t{font-family:\"Cambria Math\";\r\n\tpanose-1:2 4 5 3 5 4 6 3 2 4;}\r\n@font-face\r\n\t{font-family:Calibri;\r\n\tpanose-1:2 15 5 2 2 2 4 3 2 4;}\r\n@font-face\r\n\t{font-family:Aptos;\r\n\tpanose-1:2 11 0 4 2 2 2 2 2 4;}\r\n@font-face\r\n\t{font-family:Lato;\r\n\tpanose-1:2 15 5 2 2 2 4 3 2 3;}\r\n/* Style Definitions */\r\np.MsoNormal, li.MsoNormal, div.MsoNormal\r\n\t{margin:0cm;\r\n\tfont-size:12.0pt;\r\n\tfont-family:\"Aptos\",sans-serif;}\r\nh1\r\n\t{mso-style-priority:9;\r\n\tmso-style-link:\"Heading 1 Char\";\r\n\tmso-margin-top-alt:auto;\r\n\tmargin-right:0cm;\r\n\tmso-margin-bottom-alt:auto;\r\n\tmargin-left:0cm;\r\n\tfont-size:24.0pt;\r\n\tfont-family:\"Aptos\",sans-serif;\r\n\tfont-weight:bold;}\r\na:link, span.MsoHyperlink\r\n\t{mso-style-priority:99;\r\n\tcolor:blue;\r\n\ttext-decoration:underline;}\r\nspan.Heading1Char\r\n\t{mso-style-name:\"Heading 1 Char\";\r\n\tmso-style-priority:9;\r\n\tmso-style-link:\"Heading 1\";\r\n\tfont-family:\"Calibri Light\";\r\n\tcolor:#2F5496;}\r\n.MsoChpDefault\r\n\t{mso-style-type:export-only;\r\n\tfont-size:10.0pt;\r\n\tmso-ligatures:none;}\r\n@page WordSection1\r\n\t{size:612.0pt 792.0pt;\r\n\tmargin:72.0pt 72.0pt 72.0pt 72.0pt;}\r\ndiv.WordSection1\r\n\t{page:WordSection1;}\r\n--></style><!--[if gte mso 9]><xml>\r\n<o:shapedefaults v:ext=\"edit\" spidmax=\"1026\" />\r\n</xml><![endif]--><!--[if gte mso 9]><xml>\r\n<o:shapelayout v:ext=\"edit\">\r\n<o:idmap v:ext=\"edit\" data=\"1\" />\r\n</o:shapelayout></xml><![endif]--></head><body lang=EN-AU link=blue vlink=purple style='word-wrap:break-word'><div class=WordSection1><div style='border:none;border-top:solid #B5C4DF 1.0pt;padding:3.0pt 0cm 0cm 0cm'><p class=MsoNormal><b><span style='font-family:\"Calibri\",sans-serif;color:black'>From: </span></b><span style='font-family:\"Calibri\",sans-serif;color:black'>BJP Laboratories &lt;no-reply@notifications.ui.com&gt;<br><b>Date: </b>Wednesday 12 March 2025 at 10:52â¯am<br><b>To: </b>&lt;brad@hawkinsitsolutions.com.au&gt;<br><b>Subject: </b>Device Offline<o:p></o:p></span></p></div><div><p class=MsoNormal><o:p>&nbsp;</o:p></p></div><div id=root><div><div><div align=center><table class=MsoNormalTable border=0 cellpadding=0 width=\"100%\" style='width:100.0%'><tr><td style='padding:.75pt .75pt .75pt .75pt'><p class=MsoNormal align=center style='text-align:center'><img width=60 height=61 style='width:.625in;height:.6354in' id=\"_x0000_i1027\" src=\"cid:image001.png@01DB9348.4C45C1D0\" alt=\"Console Image\"><o:p></o:p></p><h1 align=center style='text-align:center'>Device Offline<img width=24 height=24 style='width:.25in;height:.25in' id=\"_x0000_i1026\" src=\"cid:image002.png@01DB9348.4C45C1D0\" alt=warning><o:p></o:p></h1><div><p align=center style='text-align:center'>2 Alloy Street's Inside Production has gone offline.<o:p></o:p></p></div><div align=center><table class=MsoNormalTable border=0 cellpadding=0 width=\"100%\" style='width:100.0%;border-spacing: 0px'><tr><td style='padding:0cm 9.0pt 0cm 9.0pt'><div align=center><table class=MsoNormalTable border=0 cellpadding=0><tr><td style='padding:.75pt .75pt .75pt .75pt'><p class=MsoNormal>Device Name:<o:p></o:p></p></td><td style='padding:.75pt .75pt .75pt .75pt'><p class=MsoNormal>Inside Production<o:p></o:p></p></td></tr><tr><td style='padding:.75pt .75pt .75pt .75pt'><p class=MsoNormal>Client Name: Some Client<o:p></o:p></p></td><td style='padding:.75pt .75pt .75pt .75pt'></td></tr><tr><td style='padding:.75pt .75pt .75pt .75pt'><p class=MsoNormal>Model:<o:p></o:p></p></td><td style='padding:.75pt .75pt .75pt .75pt'><p class=MsoNormal>U6+<o:p></o:p></p></td></tr><tr><td style='padding:.75pt .75pt .75pt .75pt'><p class=MsoNormal>Product:<o:p></o:p></p></td><td style='padding:.75pt .75pt .75pt .75pt'></td></tr><tr><td style='padding:.75pt .75pt .75pt .75pt'><p class=MsoNormal>Time:<o:p></o:p></p></td><td style='padding:.75pt .75pt .75pt .75pt'><p class=MsoNormal>Mar 12, 2025 at 10:52 AM<o:p></o:p></p></td></tr></table></div></td></tr></table></div></td></tr></table></div></div><div align=center><table class=MsoNormalTable border=0 cellpadding=0 width=\"100%\" style='width:100.0%'><tr><td style='padding:.75pt .75pt .75pt .75pt'><div align=center><table class=MsoNormalTable border=0 cellpadding=0 width=\"100%\" style='width:100.0%'><tr><td style='padding:.75pt .75pt .75pt .75pt'><div align=center><table class=MsoNormalTable border=0 cellpadding=0><tr><td width=60 style='width:45.0pt;padding:.75pt .75pt .75pt .75pt'><p class=MsoNormal><img width=61 height=62 style='width:.6354in;height:.6458in' id=\"_x0000_i1025\" src=\"cid:image003.png@01DB9348.4C45C1D0\" alt=Ubiquiti><o:p></o:p></p></td><td style='padding:14.25pt 0cm 14.25pt 18.0pt'><p class=MsoNormal>If you need further assistance, please <a href=\"https://account.ui.com/requests\" target=\"_blank\">contact Ubiquiti support</a>.<o:p></o:p></p></td></tr></table></div></td></tr></table></div><div><p class=MsoNormal align=center style='text-align:center'><a href=\"https://network.unifi.ui.com/8.2.93.0/unifi/?d=c1ea78a4-c1f4-44b5-aa4d-5f5a08be939b/\" target=\"_blank\">Manage notification preferences</a><o:p></o:p></p></div><div><p class=MsoNormal align=center style='text-align:center'>Â© 2025 Ubiquiti Inc. All Rights Reserved.<br>685 Third Ave. New York, NY 10017<o:p></o:p></p></div></td></tr></table></div><p class=MsoNormal><o:p>&nbsp;</o:p></p></div></div></div></body></html>\r\n",
+          "textPlain": "From: BJP Laboratories <no-reply@notifications.ui.com>\r\nDate: Wednesday 12 March 2025 at 10:52â¯am\r\nTo: <brad@hawkinsitsolutions.com.au>\r\nSubject: Device Offline\r\n\r\n \r\n\r\nDevice Offline\r\n2 Alloy Street's Inside Production has gone offline.\r\nDevice Name:Inside Production\r\nClient Name: Some Client\r\nModel:U6+\r\nProduct:\r\nTime:Mar 12, 2025 at 10:52 AM\r\nIf you need further assistance, please contact Ubiquiti support.\r\nManage notification preferences\r\n\r\nÂ© 2025 Ubiquiti Inc. All Rights Reserved.\r\n685 Third Ave. New York, NY 10017\r\n\r\n \r\n\r\n",
+          "metadata": {
+            "return-path": "<brad@hawkinsit.au>",
+            "delivered-to": "n8n@hawkinsit.au",
+            "received": "from mail.hawkinsfamily.com.au ([fd4d:6169:6c63:6f77::c])\tby 3d98d587e59d with LMTP\tid aCdfJQXu0Gd4mgAAgK3cpQ\t(envelope-from <brad@hawkinsit.au>)\tfor <n8n@hawkinsit.au>; Wed, 12 Mar 2025 12:14:29 +1000",
+            "x-original-to": "n8n@hawkinsit.au",
+            "dkim-signature": "v=1; a=rsa-sha256; c=relaxed/relaxed; d=hawkinsit.au;\ts=dkim; t=1741745667;\th=from:from:reply-to:subject:subject:date:date:message-id:message-id:\t to:to:cc:mime-version:mime-version:content-type:content-type:\t in-reply-to:in-reply-to:references:references;\tbh=zFwRQCzFr/nXrdF/eq7r4cC9ow7UPCAVkwVqEFVOv+I=;\tb=clomWwxBL+RUoWtDGIiQfjh2j5fg4LNTHMm6inz7YCjqQ99Ob+U60r2SBgYjbc003DMo7o\tIAjfCpZ9QmE4A25L4gL6NGWHsQTHcTTn5lIE53psoASsKNr2NuxKLbazZU/jcOUWmkgvMB\tiAP0DzlVeKbv/bG3WhiObRnD6yZR71vJPgJSeY/2ydJvjaLdV0VNaN9zte5XzkfCW1l7Wl\tTIrFOG0YgM3KrMKYT3SXTPaIEvqGyb1NhZsMjH3wkrL5dHABgtc6iTOcsJ9j9TypcaaI5H\tndMgnBAcHcmwKEWSShNpV+00CQqa/Gf8WOwCJifR4dyxy+2dqN5pIaDGrln5rQ==",
+            "user-agent": "Microsoft-MacOutlook/16.96.25031013",
+            "message-id": "<27F0ADB1-0BE8-48F9-B718-1DD0BD585078@hawkinsit.au>",
+            "thread-topic": "Device Offline",
+            "references": "<0101019587d6b9e3-cd48a410-f75c-4b91-b664-0e4430e4db27-000000@us-west-2.amazonses.com>",
+            "in-reply-to": "<0101019587d6b9e3-cd48a410-f75c-4b91-b664-0e4430e4db27-000000@us-west-2.amazonses.com>",
+            "mime-version": "1.0",
+            "content-type": "multipart/mixed;\tboundary=\"B_3824626467_4113439761\"",
+            "x-last-tls-session-version": "TLSv1.2"
+          },
+          "date": "Wed, 12 Mar 2025 12:14:26 +1000",
+          "subject": "Device Offline",
+          "from": "Brad Hawkins <brad@hawkinsit.au>",
+          "to": "Brad Hawkins <n8n@hawkinsit.au>"
+        }
+      }
+    ]
+  },
   "connections": {
     "Email Trigger (IMAP)": {
       "main": [
@@ -255,7 +316,7 @@
       "main": [
         [
           {
-            "node": "SyncroMSP",
+            "node": "Edit Fields1",
             "type": "main",
             "index": 0
           }
@@ -283,17 +344,39 @@
           }
         ]
       ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "SyncroMSP3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SyncroMSP3": {
+      "main": [
+        [
+          {
+            "node": "SyncroMSP",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": true,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "ec9aa329-672f-4370-9351-9bfeb143c7ce",
+  "versionId": "e41fe438-dd34-4418-aa2e-20bcdf8a52a4",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "fc5f10191c51822cf914c970a6d26bd581c91f2f6c3d6103b78a30b465cda5be"
   },
-  "id": "BjSDjamaFKNjnEHu",
+  "id": "VT2B0RUg07BC2lNo",
   "tags": []
 }
